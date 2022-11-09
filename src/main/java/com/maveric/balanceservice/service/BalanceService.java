@@ -8,15 +8,7 @@ import java.util.List;
 
 
 public interface BalanceService {
-    public List<Balance> ListBalance(String accountId);
-    public Balance createBalance(String accountId, Balance balance);
 
+    public String deleteBalance(String accountId,String balanceId);
 
-
-    public Balance getBalance(String balanceId, String accountId);
-    public Balance updateBalance(String balanceId,String accountId);
-    public String deleteBalance(String balanceId,String accountId);
-
-
-    public Balance getBalanceDetails();
 }
