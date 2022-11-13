@@ -1,4 +1,4 @@
-package com.maveric.balanceservice.Entity;
+package com.maveric.balanceservice.entity;
 
 import lombok.*;
 import org.joda.time.DateTime;
