@@ -1,9 +1,12 @@
-package com.maveric.balanceservice.Repository;
+package com.maveric.balanceservice.repository;
 
-import com.maveric.balanceservice.Entity.Balance;
+import com.maveric.balanceservice.entity.Balance;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface BalanceRepository extends MongoRepository<Balance,String> {
+    List<Balance> findAllByAccountId(String accountId);
 }
