@@ -1,8 +1,7 @@
 package com.maveric.balanceservice.service;
 
-import com.maveric.balanceservice.Dto.BalanceDto;
-import com.maveric.balanceservice.Entity.Balance;
-import com.maveric.balanceservice.Repository.BalanceRepository;
+import com.maveric.balanceservice.entity.Balance;
+import com.maveric.balanceservice.repository.BalanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
