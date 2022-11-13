@@ -1,6 +1,6 @@
 package com.maveric.balanceservice.controller;
 
-import com.maveric.balanceservice.Entity.Balance;
+import com.maveric.balanceservice.entity.Balance;
 import com.maveric.balanceservice.service.BalanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
