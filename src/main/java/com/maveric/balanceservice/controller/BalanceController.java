@@ -18,9 +18,8 @@ public class BalanceController {
     @PostMapping("/{id}/balances")
     public ResponseEntity <Balance> createBalance(@PathVariable(name = "id") String accountId, @RequestBody Balance balance){
         Balance balance1= balanceService.createBalance(accountId,balance);
-        HttpHeaders responseHeaders = new HttpHeaders();
-
-        responseHeaders.add("message","Balance Created Successfully");
+        HttpHeaders responseHeaders=new HttpHeaders();
+         responseHeaders.add("message","Balance Created Successfully");
         return new ResponseEntity(balance1,responseHeaders, HttpStatus.CREATED);
     }
 
