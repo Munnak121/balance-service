@@ -5,13 +5,20 @@ import com.maveric.balanceservice.repository.BalanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class BalanceServiceImpl implements BalanceService{
 
     @Autowired
     BalanceRepository balanceRepository;
+
+
+
+    @Override
+    public String deleteBalance(String accountId, String balanceId ) {
+        Balance balance=balanceRepository.findById(balanceId).get();
+        balanceRepository.delete(balance);
+        return "Balance deleted Successfully";
+    }
 
     @Override
     public Balance createBalance(String accountId, Balance balance) {
@@ -19,5 +26,6 @@ public class BalanceServiceImpl implements BalanceService{
         Balance b2=balanceRepository.save(balance);
         return b2;
     }
+
 
 }
