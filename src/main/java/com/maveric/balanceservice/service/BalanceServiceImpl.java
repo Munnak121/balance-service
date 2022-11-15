@@ -1,6 +1,7 @@
 package com.maveric.balanceservice.service;
 
 import com.maveric.balanceservice.dto.BalanceDto;
+
 import com.maveric.balanceservice.entity.Balance;
 import com.maveric.balanceservice.repository.BalanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,9 @@ public class BalanceServiceImpl implements BalanceService{
     BalanceRepository balanceRepository;
 
 
+
     @Override
+
     public Balance updateBalance(String balanceId, String accountId ,BalanceDto balanceDto) {
      Balance balance= balanceRepository.findById(balanceId).get();
      Integer existingBalance=  balance.getAmount();
@@ -26,4 +29,19 @@ public class BalanceServiceImpl implements BalanceService{
         return  balance;
 
     }
+    @Override
+    public String deleteBalance(String accountId, String balanceId ) {
+        Balance balance=balanceRepository.findById(balanceId).get();
+        balanceRepository.delete(balance);
+        return "Balance deleted Successfully";
+    }
+
+    @Override
+    public Balance createBalance(String accountId, Balance balance) {
+
+        Balance b2=balanceRepository.save(balance);
+        return b2;
+    }
+
+
 }

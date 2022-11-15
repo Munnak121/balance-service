@@ -8,4 +8,7 @@ public interface BalanceService {
 
     public Balance updateBalance(String balanceId,String accountId, BalanceDto balanceDto);
 
+    public Balance createBalance(String accountId, Balance balance);
+    public String deleteBalance(String accountId,String balanceId);
+
 }
