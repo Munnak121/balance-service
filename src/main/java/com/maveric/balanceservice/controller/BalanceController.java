@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "accounts")
+@RequestMapping(value = "api/v1/accounts")
 public class BalanceController {
     @Autowired
     BalanceService balanceService;
@@ -40,7 +40,7 @@ public class BalanceController {
     }
 
     @PutMapping("/{accountId}/balances/{balanceId}")
-public ResponseEntity <Balance> updateBalance(@PathVariable(name = "balanceId") String balanceId, @PathVariable(name = "accountId") String accountId, @RequestBody BalanceDto balanceDto){
+    public ResponseEntity <Balance> updateBalance(@PathVariable(name = "balanceId") String balanceId, @PathVariable(name = "accountId") String accountId, @RequestBody BalanceDto balanceDto){
 
    Balance updatedBalance= balanceService.updateBalance(balanceId,accountId,balanceDto);
         HttpHeaders responseHeaders = new HttpHeaders();
