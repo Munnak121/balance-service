@@ -1,11 +1,14 @@
 package com.maveric.balanceservice.service;
 
+
 import com.maveric.balanceservice.dto.BalanceDto;
 
 import com.maveric.balanceservice.entity.Balance;
 import com.maveric.balanceservice.repository.BalanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class BalanceServiceImpl implements BalanceService{
@@ -14,6 +17,12 @@ public class BalanceServiceImpl implements BalanceService{
     BalanceRepository balanceRepository;
 
 
+
+
+    @Override
+    public List<Balance> getBalances(String accountId) {
+        return balanceRepository.findAllByAccountId(accountId);
+    }
 
     @Override
 
