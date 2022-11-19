@@ -1,11 +1,14 @@
 package com.maveric.balanceservice.entity;
 
+import com.maveric.balanceservice.enums.Currency;
 import lombok.*;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -15,9 +18,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Balance {
     @Id
     private String _id;
+    @NotNull(message = "Account Id cannot be null")
     private String accountId;
+
+    @NotNull(message = "amount  cannot be null")
     private Integer amount;
-    private String currency;
+
+    @NotNull(message = "Currency Cannot be null")
+    private Currency currency;
 
     @CreatedDate
     private DateTime createdAt;

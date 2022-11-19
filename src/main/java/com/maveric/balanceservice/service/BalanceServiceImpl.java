@@ -5,6 +5,7 @@ import com.maveric.balanceservice.dto.BalanceDto;
 
 import com.maveric.balanceservice.entity.Balance;
 import com.maveric.balanceservice.repository.BalanceRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,8 @@ public class BalanceServiceImpl implements BalanceService{
     @Autowired
     BalanceRepository balanceRepository;
 
-
+    @Autowired
+    ModelMapper modelMapper;
 
 
     @Override
@@ -46,8 +48,8 @@ public class BalanceServiceImpl implements BalanceService{
     }
 
     @Override
-    public Balance createBalance(String accountId, Balance balance) {
-
+    public Balance createBalance(String accountId, BalanceDto balanceDto) {
+        Balance balance=modelMapper.map(balanceDto, Balance.class);
         Balance b2=balanceRepository.save(balance);
         return b2;
     }
