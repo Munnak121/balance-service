@@ -1,7 +1,10 @@
 package com.maveric.balanceservice.controller;
 
 import com.maveric.balanceservice.entity.Balance;
+import com.maveric.balanceservice.exception.AccounIdMismatchException;
+import com.maveric.balanceservice.exception.NoBalancesException;
 import com.maveric.balanceservice.service.BalanceService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.maveric.balanceservice.dto.BalanceDto;
@@ -22,10 +25,16 @@ public class BalanceController {
     @Autowired
     BalanceService balanceService;
 
+    @Autowired
+    ModelMapper modelMapper;
     @GetMapping("/{accountId}/balances")
-    public ResponseEntity<List<Balance>> getBalances(@PathVariable("accountId") String accountId) {
+    public ResponseEntity<List<BalanceDto>> getBalances(@PathVariable("accountId") String accountId) throws NoBalancesException {
         List<Balance> balances = balanceService.getBalances(accountId);
-        return new ResponseEntity<>(balances, HttpStatus.OK);
+        List<BalanceDto> dtos = balances
+                .stream()
+                .map(user -> modelMapper.map(user, BalanceDto.class))
+                .toList();
+        return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 
     //
@@ -42,7 +51,10 @@ public class BalanceController {
 
 
     @PostMapping("/{id}/balances")
-    public ResponseEntity<Balance> createBalance(@PathVariable(name = "id") String accountId, @RequestBody @Valid BalanceDto balanceDto) {
+    public ResponseEntity<Balance> createBalance(@PathVariable(name = "id") String accountId, @RequestBody @Valid BalanceDto balanceDto) throws AccounIdMismatchException {
+        if(!accountId.equals(balanceDto.getAccountId())){
+            throw new AccounIdMismatchException("Account ID in url is diff from Account Id in the RequestBody ");
+        }
         Balance balance1 = balanceService.createBalance(accountId, balanceDto);
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.add("message", "Balance Created Successfully");

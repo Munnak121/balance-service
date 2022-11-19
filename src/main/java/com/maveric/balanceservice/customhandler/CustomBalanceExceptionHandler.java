@@ -2,6 +2,8 @@ package com.maveric.balanceservice.customhandler;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.maveric.balanceservice.dto.ErrorResponseDto;
+import com.maveric.balanceservice.exception.AccounIdMismatchException;
+import com.maveric.balanceservice.exception.NoBalancesException;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,4 +60,24 @@ public class CustomBalanceExceptionHandler {
         return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler
+    public ResponseEntity<ErrorResponseDto> accountIdMismatchExceptionHandler(AccounIdMismatchException ex){
+        logger.trace("Inside CustomBalanceExceptionHandler accountIdMismatchExceptionHandler()  method");
+
+        //HttpMessageNotReadableException
+        ErrorResponseDto responseDto = new ErrorResponseDto();
+        responseDto.setCode("400");
+        responseDto.setMessage(ex.getMessage());
+        return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler
+    public ResponseEntity<ErrorResponseDto> NoBalancesExceptionHandler(NoBalancesException ex){
+        logger.trace("Inside CustomBalanceExceptionHandler accountIdMismatchExceptionHandler()  method");
+
+        //HttpMessageNotReadableException
+        ErrorResponseDto responseDto = new ErrorResponseDto();
+        responseDto.setCode("404");
+        responseDto.setMessage(ex.getMessage());
+        return new ResponseEntity<>(responseDto, HttpStatus.NOT_FOUND);
+    }
 }

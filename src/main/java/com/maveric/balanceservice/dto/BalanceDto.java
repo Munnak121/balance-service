@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.joda.time.DateTime;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Getter
@@ -15,11 +16,11 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class BalanceDto {
     private String _id;
-    @NotNull(message = "Account Id cannot be null")
+    @NotBlank(message = "Account Id cannot be null or Blank")
     private String accountId;
-    @NotNull(message = "amount  cannot be null")
+    @NotNull(message = "Amount cannot be null")
     private Integer amount;
-    @NotNull(message = "currency cannot be null")
+    @NotNull(message = "Currency cannot be null")
     private Currency currency;
 
     private DateTime createdAt;

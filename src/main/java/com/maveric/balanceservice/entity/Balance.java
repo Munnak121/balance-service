@@ -8,6 +8,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Getter
@@ -18,10 +19,10 @@ import javax.validation.constraints.NotNull;
 public class Balance {
     @Id
     private String _id;
-    @NotNull(message = "Account Id cannot be null")
+    @NotBlank(message = "Account Id cannot be null or Blank")
     private String accountId;
 
-    @NotNull(message = "amount  cannot be null")
+    @NotNull(message = "Amount cannot be null ")
     private Integer amount;
 
     @NotNull(message = "Currency Cannot be null")

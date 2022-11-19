@@ -4,6 +4,7 @@ package com.maveric.balanceservice.service;
 import com.maveric.balanceservice.dto.BalanceDto;
 
 import com.maveric.balanceservice.entity.Balance;
+import com.maveric.balanceservice.exception.NoBalancesException;
 import com.maveric.balanceservice.repository.BalanceRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,12 @@ public class BalanceServiceImpl implements BalanceService{
 
 
     @Override
-    public List<Balance> getBalances(String accountId) {
-        return balanceRepository.findAllByAccountId(accountId);
+    public List<Balance> getBalances(String accountId) throws NoBalancesException {
+       List<Balance> balances= balanceRepository.findAllByAccountId(accountId);
+        if (balances.isEmpty()) {
+            throw new NoBalancesException("No Balances for AccountId, Please Create !! "+accountId);
+        }
+        return balances;
     }
 
     @Override
