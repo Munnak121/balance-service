@@ -3,6 +3,7 @@ package com.maveric.balanceservice.customhandler;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.maveric.balanceservice.dto.ErrorResponseDto;
 import com.maveric.balanceservice.exception.AccounIdMismatchException;
+import com.maveric.balanceservice.exception.NoBalanceFoundException;
 import com.maveric.balanceservice.exception.NoBalancesException;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -72,7 +73,18 @@ public class CustomBalanceExceptionHandler {
     }
     @ExceptionHandler
     public ResponseEntity<ErrorResponseDto> NoBalancesExceptionHandler(NoBalancesException ex){
-        logger.trace("Inside CustomBalanceExceptionHandler accountIdMismatchExceptionHandler()  method");
+        logger.trace("Inside CustomBalanceExceptionHandler NoBalancesExceptionHandler()  method");
+
+        //HttpMessageNotReadableException
+        ErrorResponseDto responseDto = new ErrorResponseDto();
+        responseDto.setCode("404");
+        responseDto.setMessage(ex.getMessage());
+        return new ResponseEntity<>(responseDto, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ErrorResponseDto> NoBalanceFoundExceptionHandler(NoBalanceFoundException ex){
+        logger.trace("Inside CustomBalanceExceptionHandler 2 NoBalanceFoundExceptionHandler()  method");
 
         //HttpMessageNotReadableException
         ErrorResponseDto responseDto = new ErrorResponseDto();

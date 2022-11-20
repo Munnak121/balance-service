@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BalanceDto {
-    private String _id;
+    private String id;
     @NotBlank(message = "Account Id cannot be null or Blank")
     private String accountId;
     @NotNull(message = "Amount cannot be null")

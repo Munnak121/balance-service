@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 @Document(collection = "balance")
 public class Balance {
     @Id
-    private String _id;
+    private String id;
     @NotBlank(message = "Account Id cannot be null or Blank")
     private String accountId;
 
