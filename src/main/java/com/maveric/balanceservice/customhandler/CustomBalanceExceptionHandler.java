@@ -3,6 +3,7 @@ package com.maveric.balanceservice.customhandler;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.maveric.balanceservice.dto.ErrorResponseDto;
 import com.maveric.balanceservice.exception.AccounIdMismatchException;
+import com.maveric.balanceservice.exception.AmountisNegative;
 import com.maveric.balanceservice.exception.NoBalanceFoundException;
 import com.maveric.balanceservice.exception.NoBalancesException;
 import org.apache.commons.lang.StringUtils;
@@ -10,16 +11,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
+
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
+
 
 @ControllerAdvice
 public class CustomBalanceExceptionHandler {
@@ -27,7 +28,7 @@ public class CustomBalanceExceptionHandler {
 
 
     @ExceptionHandler
-    public ResponseEntity invalidMethodArgumentsException(MethodArgumentNotValidException ex) {
+    public ResponseEntity<ErrorResponseDto> invalidMethodArgumentsException(MethodArgumentNotValidException ex) {
         logger.trace("Inside CustomBalanceExceptionHandler invalidMethodArgumentsException()  method");
 
         List<String> errorList = new ArrayList<>();
@@ -39,7 +40,7 @@ public class CustomBalanceExceptionHandler {
 
 
     @ExceptionHandler
-    public ResponseEntity invalidValueException(InvalidFormatException ex) {
+    public ResponseEntity<ErrorResponseDto> invalidValueException(InvalidFormatException ex) {
         logger.trace("Inside CustomBalanceExceptionHandler invalidValueException()  method");
 
         //HttpMessageNotReadableException
@@ -72,7 +73,7 @@ public class CustomBalanceExceptionHandler {
         return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
     }
     @ExceptionHandler
-    public ResponseEntity<ErrorResponseDto> NoBalancesExceptionHandler(NoBalancesException ex){
+    public ResponseEntity<ErrorResponseDto> noBalancesExceptionHandler(NoBalancesException ex){
         logger.trace("Inside CustomBalanceExceptionHandler NoBalancesExceptionHandler()  method");
 
         //HttpMessageNotReadableException
@@ -83,7 +84,7 @@ public class CustomBalanceExceptionHandler {
     }
 
     @ExceptionHandler
-    public ResponseEntity<ErrorResponseDto> NoBalanceFoundExceptionHandler(NoBalanceFoundException ex){
+    public ResponseEntity<ErrorResponseDto> noBalanceFoundExceptionHandler(NoBalanceFoundException ex){
         logger.trace("Inside CustomBalanceExceptionHandler 2 NoBalanceFoundExceptionHandler()  method");
 
         //HttpMessageNotReadableException
@@ -91,5 +92,17 @@ public class CustomBalanceExceptionHandler {
         responseDto.setCode("404");
         responseDto.setMessage(ex.getMessage());
         return new ResponseEntity<>(responseDto, HttpStatus.NOT_FOUND);
+    }
+
+
+    @ExceptionHandler
+    public ResponseEntity<ErrorResponseDto> amountisNegativeException(AmountisNegative ex){
+        logger.trace("Inside CustomBalanceExceptionHandler amountisNegativeException()  method");
+
+        //HttpMessageNotReadableException
+        ErrorResponseDto responseDto = new ErrorResponseDto();
+        responseDto.setCode("400");
+        responseDto.setMessage(ex.getMessage());
+        return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
     }
 }
