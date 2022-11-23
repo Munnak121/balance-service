@@ -105,4 +105,11 @@ public class CustomBalanceExceptionHandler {
         responseDto.setMessage(ex.getMessage());
         return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler
+    public ResponseEntity<ErrorResponseDto> illegalArgumentExceptionHandler(IllegalArgumentException ex){
+        logger.trace("Inside CustomBalanceExceptionHandler illegalArgumentExceptionHandler() method");
+
+        ErrorResponseDto responseDto = new ErrorResponseDto("400", ex.getMessage());
+        return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
+    }
 }

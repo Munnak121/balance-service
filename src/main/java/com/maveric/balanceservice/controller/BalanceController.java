@@ -43,8 +43,8 @@ public class BalanceController {
      * @throws NoBalancesException
      */
 
-    @GetMapping(path = "/{accountId}/balances", params = {"page","pageSize"})
-    public ResponseEntity<List<BalanceDto>> getBalances(@PathVariable("accountId") String accountId,@RequestParam(name = "page" ,defaultValue = "1") int page,@RequestParam(name = "pageSize" ,defaultValue = "10")int pageSize) throws NoBalancesException {
+    @GetMapping(path = "/{accountId}/balances")
+    public ResponseEntity<List<BalanceDto>> getBalances(@PathVariable("accountId") String accountId,@RequestParam(name = "page" ,defaultValue = "0") int page,@RequestParam(name = "pageSize" ,defaultValue = "10")int pageSize) throws NoBalancesException {
         Page<Balance> balances = balanceService.getBalances(accountId, page,pageSize);
         List<BalanceDto> dtos = balances
                 .stream()
