@@ -34,10 +34,10 @@ public class BalanceServiceImpl implements BalanceService{
     public Page<Balance> getBalances(String accountId,int page,int pageSize) throws NoBalancesException {
 
         logger.trace("Inside getBalances Balance Service Impl  method");
-        List<Balance> balanceList=balanceRepository.findAllByAccountId(accountId);
-        if(balanceList.isEmpty()){
-            throw new NoBalancesException("No Balance for the given Account id");
-        }
+//        List<Balance> balanceList=balanceRepository.findAllByAccountId(accountId);
+//        if(balanceList.isEmpty()){
+//            throw new NoBalancesException("No Balance for the given Account id");
+//        }
        Page<Balance> balances=balanceRepository.findAllByAccountId(accountId,PageRequest.of(page,pageSize));
        // List<Balance> balances=
         if (balances.isEmpty()) {
